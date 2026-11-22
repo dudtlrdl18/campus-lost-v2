@@ -1,0 +1,10 @@
+﻿CREATE DATABASE IF NOT EXISTS campus_lost DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+USE campus_lost;
+
+CREATE TABLE IF NOT EXISTS lost_items (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  item_name VARCHAR(100) NOT NULL,
+  lost_location VARCHAR(100) NOT NULL,
+  lost_time DATETIME NOT NULL,
+  contact_phone VARCHAR(30) NOT NULL
+);
