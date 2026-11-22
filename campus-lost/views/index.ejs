@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <title>캠퍼스 분실물 센터</title>
+  <style>
+    body { font-family: sans-serif; max-width: 800px; margin: 40px auto; padding: 0 16px; }
+    h1 { margin-bottom: 20px; }
+    form.add-form { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; background: #f5f6f8; padding: 16px; border-radius: 8px; margin-bottom: 24px; }
+    form.add-form input, form.add-form button { padding: 10px; font-size: 14px; }
+    form.add-form button { grid-column: span 2; background: #2563eb; color: white; border: none; border-radius: 6px; cursor: pointer; font-weight: bold; }
+    table { width: 100%; border-collapse: collapse; }
+    th, td { border: 1px solid #ddd; padding: 10px; text-align: center; }
+    th { background: #f0f2f5; }
+    button.del-btn { background: #ef4444; color: white; border: none; padding: 6px 10px; border-radius: 4px; cursor: pointer; }
+  </style>
+</head>
+<body>
+  <h1>캠퍼스 분실물 찾기</h1>
+
+  <form class="add-form" action="/items" method="POST">
+    <input type="text" name="item_name" placeholder="물건 이름 (예: 에어팟)" required />
+    <input type="text" name="lost_location" placeholder="분실 위치 (예: 7호관 3층)" required />
+    <input type="datetime-local" name="lost_time" required />
+    <input type="text" name="contact_phone" placeholder="전화번호 (예: 010-1234-5678)" required />
+    <button type="submit">분실물 등록</button>
+  </form>
+
+  <table>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>물건 이름</th>
+        <th>분실 위치</th>
+        <th>분실 시간</th>
+        <th>전화번호</th>
+        <th>삭제</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% items.forEach(item => { %>
+        <tr>
+          <td><%= item.id %></td>
+          <td><%= item.item_name %></td>
+          <td><%= item.lost_location %></td>
+          <td><%= item.lost_time %></td>
+          <td><%= item.contact_phone %></td>
+          <td>
+            <form action="/items/<%= item.id %>/delete" method="POST" onsubmit="return confirm('삭제할까요?');">
+              <button type="submit" class="del-btn">삭제</button>
+            </form>
+          </td>
+        </tr>
+      <% }) %>
+    </tbody>
+  </table>
+</body>
+</html>
